@@ -2,7 +2,7 @@
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
 # Senior Computer Scientist, Adobe Systems Incorporated
-# Version 08/18/2014
+# Version 03/27/2015
 #
 # This tool takes a valid CMap resource as STDIN, and outputs to STDOUT
 # an optimized -- in terms of representing contiguous code points and
@@ -10,8 +10,11 @@
 # performed, to include sorting the code points, duplicate code points,
 # and checking for out-of-range code points. If the "-e" command-line
 # option is specified, a single "begincidchar/endcidchar" block that
-# contains single mappings is output to STDOUT. Adobe's current open
-# source license is included as part of the CMap resource header.
+# contains single mappings is output to STDOUT, which is considered the
+# uncompiled form. If the tool detects that a UTF-32 CMap resource is
+# being compiled, by having "UTF32" as part of the /CMapName, matching
+# UTF-8 and UTF-16 CMap resources are compiled. The Apache License,
+# Version 2.0 is included as part of the CMap resource header.
 #
 # Tool Dependencies: None
 
@@ -101,7 +104,7 @@ if ($cmap{Name} eq "$cmap{Registry}-$cmap{Ordering}-$cmap{Supplement}") {
   &PrintCMap(%cmap);
 }
 
-if ($cmap{Name} =~ /UTF32/) {
+if ($cmap{Name} =~ /UTF32/ and not $expand) {
   foreach $utf (8, 16) {
     $outfile = "OUTFILE";
     $cmap{Name} =~ s/UTF32/UTF$utf/;
@@ -408,39 +411,19 @@ sub PrintCMap (%) {
 \%\%Version: $cmap{Version}
 \%\%Copyright: -----------------------------------------------------------
 \%\%Copyright: Copyright 1990-$year Adobe Systems Incorporated.
-\%\%Copyright: All rights reserved.
 \%\%Copyright:
-\%\%Copyright: Redistribution and use in source and binary forms, with or
-\%\%Copyright: without modification, are permitted provided that the
-\%\%Copyright: following conditions are met:
+\%\%Copyright: Licensed under the Apache License, Version 2.0 (the
+\%\%Copyright: "License"); you may not use this file except in
+\%\%Copyright: compliance with the License. You may obtain a copy of
+\%\%Copyright: the License at
+\%\%Copyright: http://www.apache.org/licenses/LICENSE-2.0.html
 \%\%Copyright:
-\%\%Copyright: Redistributions of source code must retain the above
-\%\%Copyright: copyright notice, this list of conditions and the following
-\%\%Copyright: disclaimer.
-\%\%Copyright:
-\%\%Copyright: Redistributions in binary form must reproduce the above
-\%\%Copyright: copyright notice, this list of conditions and the following
-\%\%Copyright: disclaimer in the documentation and/or other materials
-\%\%Copyright: provided with the distribution. 
-\%\%Copyright:
-\%\%Copyright: Neither the name of Adobe Systems Incorporated nor the names
-\%\%Copyright: of its contributors may be used to endorse or promote
-\%\%Copyright: products derived from this software without specific prior
-\%\%Copyright: written permission. 
-\%\%Copyright:
-\%\%Copyright: THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
-\%\%Copyright: CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
-\%\%Copyright: INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-\%\%Copyright: MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-\%\%Copyright: DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
-\%\%Copyright: CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-\%\%Copyright: SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
-\%\%Copyright: NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-\%\%Copyright: LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-\%\%Copyright: HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-\%\%Copyright: CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
-\%\%Copyright: OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-\%\%Copyright: SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+\%\%Copyright: Unless required by applicable law or agreed to in
+\%\%Copyright: writing, software distributed under the License is
+\%\%Copyright: distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+\%\%Copyright: CONDITIONS OF ANY KIND, either express or implied. See
+\%\%Copyright: the License for the specific language governing
+\%\%Copyright: permissions and limitations under the License.
 \%\%Copyright: -----------------------------------------------------------
 \%\%EndComments
 
@@ -495,39 +478,19 @@ sub PrintUseCMap (%) {
 \%\%Version: $cmap{Version}
 \%\%Copyright: -----------------------------------------------------------
 \%\%Copyright: Copyright 1990-$year Adobe Systems Incorporated.
-\%\%Copyright: All rights reserved.
 \%\%Copyright:
-\%\%Copyright: Redistribution and use in source and binary forms, with or
-\%\%Copyright: without modification, are permitted provided that the
-\%\%Copyright: following conditions are met:
+\%\%Copyright: Licensed under the Apache License, Version 2.0 (the
+\%\%Copyright: "License"); you may not use this file except in
+\%\%Copyright: compliance with the License. You may obtain a copy of
+\%\%Copyright: the License at
+\%\%Copyright: http://www.apache.org/licenses/LICENSE-2.0.html
 \%\%Copyright:
-\%\%Copyright: Redistributions of source code must retain the above
-\%\%Copyright: copyright notice, this list of conditions and the following
-\%\%Copyright: disclaimer.
-\%\%Copyright:
-\%\%Copyright: Redistributions in binary form must reproduce the above
-\%\%Copyright: copyright notice, this list of conditions and the following
-\%\%Copyright: disclaimer in the documentation and/or other materials
-\%\%Copyright: provided with the distribution. 
-\%\%Copyright:
-\%\%Copyright: Neither the name of Adobe Systems Incorporated nor the names
-\%\%Copyright: of its contributors may be used to endorse or promote
-\%\%Copyright: products derived from this software without specific prior
-\%\%Copyright: written permission. 
-\%\%Copyright:
-\%\%Copyright: THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
-\%\%Copyright: CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
-\%\%Copyright: INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-\%\%Copyright: MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-\%\%Copyright: DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
-\%\%Copyright: CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-\%\%Copyright: SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
-\%\%Copyright: NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-\%\%Copyright: LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-\%\%Copyright: HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-\%\%Copyright: CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
-\%\%Copyright: OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-\%\%Copyright: SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+\%\%Copyright: Unless required by applicable law or agreed to in
+\%\%Copyright: writing, software distributed under the License is
+\%\%Copyright: distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+\%\%Copyright: CONDITIONS OF ANY KIND, either express or implied. See
+\%\%Copyright: the License for the specific language governing
+\%\%Copyright: permissions and limitations under the License.
 \%\%Copyright: -----------------------------------------------------------
 \%\%EndComments
 
@@ -581,39 +544,19 @@ sub PrintIdentityCMap (%) {
 \%\%Version: $cmap{Version}
 \%\%Copyright: -----------------------------------------------------------
 \%\%Copyright: Copyright 1990-$year Adobe Systems Incorporated.
-\%\%Copyright: All rights reserved.
 \%\%Copyright:
-\%\%Copyright: Redistribution and use in source and binary forms, with or
-\%\%Copyright: without modification, are permitted provided that the
-\%\%Copyright: following conditions are met:
+\%\%Copyright: Licensed under the Apache License, Version 2.0 (the
+\%\%Copyright: "License"); you may not use this file except in
+\%\%Copyright: compliance with the License. You may obtain a copy of
+\%\%Copyright: the License at
+\%\%Copyright: http://www.apache.org/licenses/LICENSE-2.0.html
 \%\%Copyright:
-\%\%Copyright: Redistributions of source code must retain the above
-\%\%Copyright: copyright notice, this list of conditions and the following
-\%\%Copyright: disclaimer.
-\%\%Copyright:
-\%\%Copyright: Redistributions in binary form must reproduce the above
-\%\%Copyright: copyright notice, this list of conditions and the following
-\%\%Copyright: disclaimer in the documentation and/or other materials
-\%\%Copyright: provided with the distribution. 
-\%\%Copyright:
-\%\%Copyright: Neither the name of Adobe Systems Incorporated nor the names
-\%\%Copyright: of its contributors may be used to endorse or promote
-\%\%Copyright: products derived from this software without specific prior
-\%\%Copyright: written permission. 
-\%\%Copyright:
-\%\%Copyright: THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
-\%\%Copyright: CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
-\%\%Copyright: INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-\%\%Copyright: MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-\%\%Copyright: DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
-\%\%Copyright: CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-\%\%Copyright: SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
-\%\%Copyright: NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-\%\%Copyright: LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-\%\%Copyright: HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-\%\%Copyright: CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
-\%\%Copyright: OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-\%\%Copyright: SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+\%\%Copyright: Unless required by applicable law or agreed to in
+\%\%Copyright: writing, software distributed under the License is
+\%\%Copyright: distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+\%\%Copyright: CONDITIONS OF ANY KIND, either express or implied. See
+\%\%Copyright: the License for the specific language governing
+\%\%Copyright: permissions and limitations under the License.
 \%\%Copyright: -----------------------------------------------------------
 \%\%EndComments
 
