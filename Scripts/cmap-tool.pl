@@ -1,20 +1,22 @@
 #!/usr/bin/perl
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
-# Senior Computer Scientist, Adobe Systems Incorporated
-# Version 03/27/2015
+# Senior Computer Scientist 2, Adobe Systems Incorporated
+# Version 11/08/2015
 #
 # This tool takes a valid CMap resource as STDIN, and outputs to STDOUT
 # an optimized -- in terms of representing contiguous code points and
 # contiguous CIDs as ranges -- CMap resource. Various error checking is
-# performed, to include sorting the code points, duplicate code points,
-# and checking for out-of-range code points. If the "-e" command-line
-# option is specified, a single "begincidchar/endcidchar" block that
+# performed, to include sorting the code points, detecting duplicate code
+# points, and checking for out-of-range code points. If the "-e" command-
+# line option is specified, a single "begincidchar/endcidchar" block that
 # contains single mappings is output to STDOUT, which is considered the
 # uncompiled form. If the tool detects that a UTF-32 CMap resource is
-# being compiled, by having "UTF32" as part of the /CMapName, matching
-# UTF-8 and UTF-16 CMap resources are compiled. The Apache License,
-# Version 2.0 is included as part of the CMap resource header.
+# being compiled, by having "UTF32" as part of the /CMapName, corresponding
+# UTF-8 and UTF-16 CMap resources are compiled. If STDIN does not include
+# a /UIDBase value or /XUID array, the CMap resources that are generated
+# will not include them. The BSD license is included as part of the CMap
+# resource header.
 #
 # Tool Dependencies: None
 
@@ -208,7 +210,7 @@ sub GetData ($) { # For extracting CMap information
   $data{Name} = $name if $name;
   $data{Version} = $version if $version;
   $data{UIDOffset} = "$uidoffset def\n" if $uidoffset;
-  $data{XUID} = $xuid if $xuid;
+  $data{XUID} = $xuid if $xuid ne "";
   $data{WMode} = $wmode if $wmode or $wmode eq "0";
   $data{CodeSpace} = $codespacerange if $codespacerange;
   $data{NotDef} = $notdefrange if $notdefrange;
@@ -397,9 +399,9 @@ sub PrintCMap (%) {
   my (%cmap) = @_;
   my $uid;
   if (defined $cmap{UIDOffset}) {
-    $uid = "$cmap{UIDOffset}/XUID [$cmap{XUID}] def";
-  } else {
-    $uid = "/XUID [$cmap{XUID}] def";
+    $uid = "\n$cmap{UIDOffset}/XUID [$cmap{XUID}] def\n";
+  } elsif (defined $cmap{XUID}) {
+    $uid = "\n/XUID [$cmap{XUID}] def\n";
   }
 
   print $outfile <<EOD;
@@ -411,19 +413,39 @@ sub PrintCMap (%) {
 \%\%Version: $cmap{Version}
 \%\%Copyright: -----------------------------------------------------------
 \%\%Copyright: Copyright 1990-$year Adobe Systems Incorporated.
+\%\%Copyright: All rights reserved.
 \%\%Copyright:
-\%\%Copyright: Licensed under the Apache License, Version 2.0 (the
-\%\%Copyright: "License"); you may not use this file except in
-\%\%Copyright: compliance with the License. You may obtain a copy of
-\%\%Copyright: the License at
-\%\%Copyright: http://www.apache.org/licenses/LICENSE-2.0.html
+\%\%Copyright: Redistribution and use in source and binary forms, with or
+\%\%Copyright: without modification, are permitted provided that the
+\%\%Copyright: following conditions are met:
 \%\%Copyright:
-\%\%Copyright: Unless required by applicable law or agreed to in
-\%\%Copyright: writing, software distributed under the License is
-\%\%Copyright: distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-\%\%Copyright: CONDITIONS OF ANY KIND, either express or implied. See
-\%\%Copyright: the License for the specific language governing
-\%\%Copyright: permissions and limitations under the License.
+\%\%Copyright: Redistributions of source code must retain the above
+\%\%Copyright: copyright notice, this list of conditions and the following
+\%\%Copyright: disclaimer.
+\%\%Copyright:
+\%\%Copyright: Redistributions in binary form must reproduce the above
+\%\%Copyright: copyright notice, this list of conditions and the following
+\%\%Copyright: disclaimer in the documentation and/or other materials
+\%\%Copyright: provided with the distribution. 
+\%\%Copyright:
+\%\%Copyright: Neither the name of Adobe Systems Incorporated nor the names
+\%\%Copyright: of its contributors may be used to endorse or promote
+\%\%Copyright: products derived from this software without specific prior
+\%\%Copyright: written permission. 
+\%\%Copyright:
+\%\%Copyright: THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+\%\%Copyright: CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+\%\%Copyright: INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+\%\%Copyright: MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+\%\%Copyright: DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+\%\%Copyright: CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+\%\%Copyright: SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+\%\%Copyright: NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+\%\%Copyright: LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+\%\%Copyright: HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+\%\%Copyright: CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+\%\%Copyright: OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+\%\%Copyright: SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 \%\%Copyright: -----------------------------------------------------------
 \%\%EndComments
 
@@ -442,9 +464,7 @@ end def
 /CMapName /$cmap{Name} def
 /CMapVersion $cmap{Version} def
 /CMapType 1 def
-
 $uid
-
 /WMode $cmap{WMode} def
 
 $cmap{CodeSpace}$cmap{NotDef}
@@ -462,9 +482,9 @@ sub PrintUseCMap (%) {
   my (%cmap) = @_;
   my $uid;
   if (defined $cmap{UIDOffset}) {
-    $uid = "$cmap{UIDOffset}/XUID [$cmap{XUID}] def";
-  } else {
-    $uid = "/XUID [$cmap{XUID}] def";
+    $uid = "\n$cmap{UIDOffset}/XUID [$cmap{XUID}] def\n";
+  } elsif (defined $cmap{XUID}) {
+    $uid = "\n/XUID [$cmap{XUID}] def\n";
   }
 
   print $outfile <<EOD;
@@ -478,19 +498,39 @@ sub PrintUseCMap (%) {
 \%\%Version: $cmap{Version}
 \%\%Copyright: -----------------------------------------------------------
 \%\%Copyright: Copyright 1990-$year Adobe Systems Incorporated.
+\%\%Copyright: All rights reserved.
 \%\%Copyright:
-\%\%Copyright: Licensed under the Apache License, Version 2.0 (the
-\%\%Copyright: "License"); you may not use this file except in
-\%\%Copyright: compliance with the License. You may obtain a copy of
-\%\%Copyright: the License at
-\%\%Copyright: http://www.apache.org/licenses/LICENSE-2.0.html
+\%\%Copyright: Redistribution and use in source and binary forms, with or
+\%\%Copyright: without modification, are permitted provided that the
+\%\%Copyright: following conditions are met:
 \%\%Copyright:
-\%\%Copyright: Unless required by applicable law or agreed to in
-\%\%Copyright: writing, software distributed under the License is
-\%\%Copyright: distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-\%\%Copyright: CONDITIONS OF ANY KIND, either express or implied. See
-\%\%Copyright: the License for the specific language governing
-\%\%Copyright: permissions and limitations under the License.
+\%\%Copyright: Redistributions of source code must retain the above
+\%\%Copyright: copyright notice, this list of conditions and the following
+\%\%Copyright: disclaimer.
+\%\%Copyright:
+\%\%Copyright: Redistributions in binary form must reproduce the above
+\%\%Copyright: copyright notice, this list of conditions and the following
+\%\%Copyright: disclaimer in the documentation and/or other materials
+\%\%Copyright: provided with the distribution. 
+\%\%Copyright:
+\%\%Copyright: Neither the name of Adobe Systems Incorporated nor the names
+\%\%Copyright: of its contributors may be used to endorse or promote
+\%\%Copyright: products derived from this software without specific prior
+\%\%Copyright: written permission. 
+\%\%Copyright:
+\%\%Copyright: THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+\%\%Copyright: CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+\%\%Copyright: INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+\%\%Copyright: MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+\%\%Copyright: DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+\%\%Copyright: CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+\%\%Copyright: SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+\%\%Copyright: NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+\%\%Copyright: LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+\%\%Copyright: HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+\%\%Copyright: CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+\%\%Copyright: OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+\%\%Copyright: SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 \%\%Copyright: -----------------------------------------------------------
 \%\%EndComments
 
@@ -511,9 +551,7 @@ end def
 /CMapName /$cmap{Name} def
 /CMapVersion $cmap{Version} def
 /CMapType 1 def
-
 $uid
-
 /WMode $cmap{WMode} def
 
 $cmap{NewMappings}endcmap
@@ -530,9 +568,9 @@ sub PrintIdentityCMap (%) {
   my (%cmap) = @_;
   my $uid;
   if (defined $cmap{UIDOffset}) {
-    $uid = "$cmap{UIDOffset}/XUID [$cmap{XUID}] def";
-  } else {
-    $uid = "/XUID [$cmap{XUID}] def";
+    $uid = "\n$cmap{UIDOffset}/XUID [$cmap{XUID}] def\n";
+  } elsif (defined $cmap{XUID}) {
+    $uid = "\n/XUID [$cmap{XUID}] def\n";
   }
 
   print $outfile <<EOD;
@@ -544,19 +582,39 @@ sub PrintIdentityCMap (%) {
 \%\%Version: $cmap{Version}
 \%\%Copyright: -----------------------------------------------------------
 \%\%Copyright: Copyright 1990-$year Adobe Systems Incorporated.
+\%\%Copyright: All rights reserved.
 \%\%Copyright:
-\%\%Copyright: Licensed under the Apache License, Version 2.0 (the
-\%\%Copyright: "License"); you may not use this file except in
-\%\%Copyright: compliance with the License. You may obtain a copy of
-\%\%Copyright: the License at
-\%\%Copyright: http://www.apache.org/licenses/LICENSE-2.0.html
+\%\%Copyright: Redistribution and use in source and binary forms, with or
+\%\%Copyright: without modification, are permitted provided that the
+\%\%Copyright: following conditions are met:
 \%\%Copyright:
-\%\%Copyright: Unless required by applicable law or agreed to in
-\%\%Copyright: writing, software distributed under the License is
-\%\%Copyright: distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-\%\%Copyright: CONDITIONS OF ANY KIND, either express or implied. See
-\%\%Copyright: the License for the specific language governing
-\%\%Copyright: permissions and limitations under the License.
+\%\%Copyright: Redistributions of source code must retain the above
+\%\%Copyright: copyright notice, this list of conditions and the following
+\%\%Copyright: disclaimer.
+\%\%Copyright:
+\%\%Copyright: Redistributions in binary form must reproduce the above
+\%\%Copyright: copyright notice, this list of conditions and the following
+\%\%Copyright: disclaimer in the documentation and/or other materials
+\%\%Copyright: provided with the distribution. 
+\%\%Copyright:
+\%\%Copyright: Neither the name of Adobe Systems Incorporated nor the names
+\%\%Copyright: of its contributors may be used to endorse or promote
+\%\%Copyright: products derived from this software without specific prior
+\%\%Copyright: written permission. 
+\%\%Copyright:
+\%\%Copyright: THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+\%\%Copyright: CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+\%\%Copyright: INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+\%\%Copyright: MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+\%\%Copyright: DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+\%\%Copyright: CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+\%\%Copyright: SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+\%\%Copyright: NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+\%\%Copyright: LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+\%\%Copyright: HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+\%\%Copyright: CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+\%\%Copyright: OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+\%\%Copyright: SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 \%\%Copyright: -----------------------------------------------------------
 \%\%EndComments
 
@@ -575,9 +633,7 @@ end def
 /CMapName /$cmap{Name} def
 /CMapVersion $cmap{Version} def
 /CMapType 1 def
-
 $uid
-
 /WMode $cmap{WMode} def
 
 /CIDCount $expanded def
