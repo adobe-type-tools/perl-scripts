@@ -210,7 +210,7 @@ sub GetData ($) { # For extracting CMap information
   $data{Name} = $name if $name;
   $data{Version} = $version if $version;
   $data{UIDOffset} = "$uidoffset def\n" if $uidoffset;
-  $data{XUID} = $xuid if $xuid ne "";
+  $data{XUID} = $xuid if $xuid;
   $data{WMode} = $wmode if $wmode or $wmode eq "0";
   $data{CodeSpace} = $codespacerange if $codespacerange;
   $data{NotDef} = $notdefrange if $notdefrange;
