@@ -2,7 +2,7 @@
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
 # Senior Computer Scientist, Adobe Systems Incorporated
-# Version 08/18/2014
+# Version 03/30/2016
 #
 # This tool lists the glyphs in the specified font, which can be a
 # CIDFont resource, a name-keyed Type 1 font (PFA), or an 'sfnt'
@@ -39,12 +39,12 @@ while ($ARGV[0]) {
         $sep = ",";
         shift;
     } else {
-        $font = "\"$ARGV[0]\"";
+        $file = "\"$ARGV[0]\"";
         shift;
     }
 }
 
-open(FILE,"tx -1 $font |") or die "Cannot open $font input file!\n";
+open(FILE,"tx -1 $file |") or die "Cannot open $file input file!\n";
 
 while(defined($line = <FILE>)) {
     chomp $line;
