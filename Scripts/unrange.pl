@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
-# Senior Computer Scientist, Adobe Systems Incorporated
-# Version 08/18/2014
+# Senior Computer Scientist 2, Adobe Systems Incorporated
+# Version 02/28/2017
 #
 # This script uses STDIN and STDOUT, and simply unwinds a list of integer
 # values, some of which may be expressed as ranges by using a hyphen as a
@@ -13,6 +13,7 @@
 
 while(defined($line = <STDIN>)) {
     chomp $line;
+    $line =~ s/\///g;
     if ($line =~ /-/) {
         ($begin,$end) = split(/-/,$line);
         foreach $num ($begin .. $end) {
