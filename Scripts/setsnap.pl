@@ -2,7 +2,7 @@
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
 # Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 04/11/2016
+# Version 09/14/2017
 #
 # Please invoke this script using the "-u" command-line option to see
 # the command-line options, or "-h" to display more information.
@@ -87,7 +87,7 @@ sub scandata ($$) {
 
 sub getrange ($) {
     my ($range) = @_;
-    $number = 0;
+    my ($number,$index) = (0,0);
     foreach $i (sort {$a <=> $b} keys %w2c) {
         $temp = &scandata($i,$range);
         if ($temp > $number) {
@@ -100,6 +100,7 @@ sub getrange ($) {
 
 sub getindex ($$) {
     my ($bottom,$top) = @_;
+    my ($number,$index) = (0,0);
     foreach $size ($bottom * 2 .. $top * 2) {
         $count{&getrange(&rnd(0.35 * (72000 / (($size / 2) * $res))))} += 1;
     }
@@ -107,7 +108,6 @@ sub getindex ($$) {
         $index = $i and $number = $count{$i} if $count{$i} > $number;
     }
     undef %count;
-    $number = 0;
     return $index;
 }
 
@@ -129,7 +129,7 @@ sub fix {
 
 sub ShowUsage {
   print STDOUT &fix(<<ENDUSAGE);
-  setsnap.pl Version 04/11/2016
+  setsnap.pl Version 09/14/2017
 
   setsnap.pl [-u] [-h]
   setsnap.pl < stemHist-generated-stemwidth-reports
