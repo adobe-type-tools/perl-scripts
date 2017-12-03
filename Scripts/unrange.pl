@@ -2,22 +2,41 @@
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
 # Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 02/28/2017
+# Version 12/03/2017
 #
 # This script uses STDIN and STDOUT, and simply unwinds a list of integer
-# values, some of which may be expressed as ranges by using a hyphen as a
-# separator, into a single value per line. This tool is useful when
-# working with subset definition files for CIDFont resources.
+# or dexadecimal values, some of which may be expressed as ranges by
+# using a hyphen as a separator, into a single value per line. The "-h"
+# command-line option must be specified if the input is hexadecimal.
 #
 # Tool Dependencies: None
+
+$dohex = $len = 0;
+
+while ($ARGV[0]) {
+    if ($ARGV[0] =~ /^-[hH]/) {
+        $dohex = 1;
+        shift;
+    } else {
+        print STDERR "Invalid option: $ARGV[0]! Skipping...\n";
+        shift;
+    }
+}
 
 while(defined($line = <STDIN>)) {
     chomp $line;
     $line =~ s/\///g;
     if ($line =~ /-/) {
         ($begin,$end) = split(/-/,$line);
-        foreach $num ($begin .. $end) {
-            print STDOUT "$num\n";
+        if ($dohex) {
+            $len = length $begin if not $len;
+            foreach $num (hex($begin) .. hex($end)) {
+                printf STDOUT "%0${len}X\n",$num;
+            }
+        } else {
+            foreach $num ($begin .. $end) {
+                print STDOUT "$num\n";
+            }
         }
     } else {
         print STDOUT "$line\n";

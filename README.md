@@ -1,10 +1,10 @@
 Perl scripts
 =========================
-Assortment of Perl scripts that run on the command line, i.e. **Terminal** on OS X, and **Command Prompt** on Windows.
+Assortment of Perl scripts that run on the command line, i.e. **Terminal** on macOS, and **Command Prompt** on Windows.
 
 Installation
 -----
-**OS X**: A version of Perl is already installed.
+**macOS**: A version of Perl is already installed.
 
 **Windows**: You may need to install one of the versions available at [perl.org](http://www.perl.org/get.html).
 
@@ -13,8 +13,7 @@ Dependencies
 Some of the scripts may depend on certain tools being installed and appropriately configured to run on the command line. Such dependencies are stated in the comments section at the beginning of each script.
 Here is a list of the locations from which you may need to get the extra tools and packages:
 
-* [Adobe Font Development Kit for OpenType (AFDKO)](http://www.adobe.com/devnet/opentype/afdko.html)
- * tx
+* [Adobe Font Development Kit for OpenType (AFDKO)](http://www.adobe.com/devnet/opentype/afdko.html) for spot and tx
 * Adobe Acrobat Distiller
 
 Using the scripts
