@@ -2,7 +2,7 @@
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
 # Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 12/03/2017
+# Version 12/07/2017
 #
 # This tool lists the Unicode code points in the specified OpenType
 # font. By default, only the Unicode code points are listed, one per
@@ -52,7 +52,7 @@ while(defined($line = <FILE>)) {
             } elsif ($2 == 32) {
                 $utf32 = $1;
             }
-        } elsif ($line =~ /^\[\s*(\d+)\]={Microsoft,Unicode\s.+(BMP|UCS[-]4).+}$/) {
+        } elsif ($line =~ /^\[\s*(\d+)\]={Microsoft,Unicode\s(BMP|UCS[-]4).+}$/) {
             if ($2 eq "BMP") {
                 $utf16 = $1;
             } elsif ($2 eq "UCS-4") {
