@@ -185,11 +185,13 @@ Here is a list of the locations from which you may need to get the extra tools a
     * tx
 * Adobe Acrobat Distiller
 
-## General usage information
 -----
+
+## General usage information
+
 1. Download the [ZIP package](https://github.com/adobe-type-tools/perl-scripts/archive/master.zip) and unzip it.
-2. 
- * All of the scripts can be run by simply typing `perl ` followed by the file name of the script, such as `perl theScript.pl`.
+2.
+ * All of the scripts can be run by simply typing `perl` followed by the file name of the script, such as `perl theScript.pl`.
  * If the script is in a different directory from which you are trying to run it, you will need to provide the full path to the script's file, such as `perl /Users/myself/foldername/theScript.pl`.
  * Some scripts may allow you to use options, or require that you provide input files. To learn how to use those scripts, open them in a text editor app (such as *TextEdit* on MacOS or *Notepad* on Windows) and read the documentation in the header of the file.
 
