@@ -2,16 +2,16 @@
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
 # Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 12/13/2017
+# Version 12/14/2017
 
-# This tool takes a CID-keyed font as its only command-line argument,
+# This tool takes a CIDFont resource as its only command-line argument,
 # along with a list of CIDs or CID ranges that correspond to full-width
 # glyphs that rest on the Western baseline, such as Latin, Greek,
 # Cyrillic, currency symbols, and other characters, as STDIN, and
 # generates a 'vmtx' table override that can be included in a "features"
 # file. The glyphs are mechanically centered along the Y-axis by using
 # the top and bottom of the em-box as reference points, along with the
-# top and bottom of the bounding box.
+# top and bottom of their bounding boxes.
 #
 # Tool Dependencies: tx (AFDKO)
 

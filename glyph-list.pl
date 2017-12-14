@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
-# Senior Computer Scientist, Adobe Systems Incorporated
+# Senior Computer Scientist 2, Adobe Systems Incorporated
 # Version 03/30/2016
 #
 # This tool lists the glyphs in the specified font, which can be a

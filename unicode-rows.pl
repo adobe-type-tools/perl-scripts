@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
-# Senior Computer Scientist, Adobe Systems Incorporated
-# Version 08/18/2014
+# Senior Computer Scientist 2, Adobe Systems Incorporated
+# Version 12/14/2017
 #
 # This script accepts as its only argument a fully-qualified
 # PostScript name for a CID-keyed font that includes a UTF-32
@@ -15,7 +15,8 @@
 # resource. The specified CIDFont and CMap resources must be
 # accessible to the Distiller app, and the CIDFont resource must have
 # the appropriate embedding permissions set, meaning that the
-# /FontInfo dictionary must include /FSType with a value of 4 or 8.
+# /FontInfo dictionary must include /FSType with a value of 0, 4,
+# or 8.
 #
 # Tool Dependencies: Adobe Acrobat Distiller
 # Font Dependencies: SourceSansPro-Bold, SourceCodePro-ExtraLight,

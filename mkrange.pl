@@ -2,17 +2,17 @@
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
 # Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 02/28/2017
+# Version 12/14/2017
 #
 # This script takes a list of integer values as STDIN and outputs to
 # STDOUT the same list, but as ranges of contiguous integer values
 # using a hyphen as the separator. No sorting is performed, and the
 # integer values can be prefixed with a slash (the use of a slash
-# prefix explicitly species CID values, as opposed to GID values,
+# prefix explicitly specifies CID values, as opposed to GID values,
 # which is useful for CID-keyed font development). Hexadecimal values
 # are supported if the "-h" command-line option is specified.
 #
-# The "-n" command-line option will output the single values and
+# The "-s" command-line option will output the single values and
 # ranges as a single line that uses a comma as a separator.
 #
 # Tool Dependencies: None
@@ -22,7 +22,7 @@ $prefix = "";
 $sep = "\n";
 
 while ($ARGV[0]) {
-    if ($ARGV[0] =~ /^-[nN]/) {
+    if ($ARGV[0] =~ /^-[sS]/) {
         $sep = ",";
         shift;
     } elsif ($ARGV[0] =~ /^-[hH]/) {

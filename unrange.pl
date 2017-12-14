@@ -2,10 +2,10 @@
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
 # Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 12/03/2017
+# Version 12/14/2017
 #
 # This script uses STDIN and STDOUT, and simply unwinds a list of integer
-# or dexadecimal values, some of which may be expressed as ranges by
+# or hexadecimal values, some of which may be expressed as ranges by
 # using a hyphen as a separator, into a single value per line. The "-h"
 # command-line option must be specified if the input is hexadecimal.
 #

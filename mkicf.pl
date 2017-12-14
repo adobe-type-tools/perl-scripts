@@ -2,17 +2,17 @@
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
 # Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 02/28/2017
+# Version 12/14/2017
 
-# This tool takes a UTF-32 CMap resource as input and a CID-keyed
-# AFM file as STDIN, calculates appropriate ICF (Ideographic
+# This tool takes a CIDFont resource as input and a UTF-32 CMap
+# resource as STDIN, calculates appropriate ICF (Ideographic
 # Character Face) values, and outputs a ready-to-use 'BASE' table
 # override section that can be used in a "features" file that is
 # used as input to the AFDKO makeotf tool. The optional "-k" command-
 # line option can be specified to insert the 'hang' (hangul) script
 # tag.
 #
-# Tool Dependencies: None
+# Tool Dependencies: tx (AFDKO)
 
 use integer;
 
@@ -20,21 +20,20 @@ $data = $num = $count = $hang = $llx = $urx = $lly = $ury = 0;
 
 while ($ARGV[0]) {
     if ($ARGV[0] =~ /^-[huHU]/) {
-        print STDERR "Usage: mkicf.pl [-k] <UTF-32_CMap_Resource> < <AFM>\n";
+        print STDERR "Usage: mkicf.pl [-k] <CIDFont_Resource> < <UTF-32_CMap_Resource>\n";
         exit;
     } elsif ($ARGV[0] =~ /^-[kK]/) {
         print STDERR "Note: Inserting 'hang' script tag\n";
         $hang = 1;
         shift;
     } else {
-        $cmap = $ARGV[0]; # UTF-32 CMap, such as UniJIS2004-UTF32-H
+        $file = $ARGV[0];
         shift;
     }
 }
 
-open(CMAP,"<$cmap") or  die "Error opening $cmap CMap file.\n";
-print STDERR "Storing \"$cmap\" CMap mappings into lookup structure...";
-while (defined($line = <CMAP>)) {
+print STDERR "Storing CMap resource mappings into lookup structure...";
+while (defined($line = <STDIN>)) {
   if ($data or $line =~ /begincid(?:char|range)/) {
     $data = 1;
   } else {
@@ -69,18 +68,19 @@ while (defined($line = <CMAP>)) {
     }
   }
 }
-close(CMAP);
 print STDERR "Done.\n";
 
+open(AFM,"tx -afm $file |") or die "Cannot open $file input file!\n";
+
 print STDERR "Storing AFM records for ";
-while (defined($line = <STDIN>)) {
+while (defined($line = <AFM>)) {
   chomp $line;
   if ($line =~ /^FontName/) {
     ($fontname) = $line =~ /^FontName\s+(.*)$/;
     print STDERR "\"$fontname\" CIDFont into lookup structure...";
   } elsif ($line =~ /^StartCharMetrics/) {
     while ($line !~ /^EndCharMetrics/) {
-      chomp($line = <STDIN>);
+      chomp($line = <AFM>);
       ($width,$cid,$bbox,$a,$b,$c,$d) = $line =~ m{
         ^
           \s* C \s+ -?\d+ \s+ ; \s+
@@ -102,6 +102,7 @@ while (defined($line = <STDIN>)) {
   }
 }
 print STDERR "Done.\n";
+close(AFM);
 
 $left = $llx / $num;
 $right = 1000 - ($urx / $num);

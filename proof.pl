@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
-# Senior Computer Scientist, Adobe Systems Incorporated
-# Version 08/18/2014
+# Senior Computer Scientist 2, Adobe Systems Incorporated
+# Version 12/14/2017
 #
 # This script accepts as STDIN a list of CIDs (for CIDFont resources),
 # glyph names (for name-keyed fonts), or eight-digit hexadecimal
@@ -23,9 +23,10 @@
 # fonts, the (UTF-32) CMap resource must also be accessible. Font
 # resources must have the appropriate embedding permissions set, and
 # for CIDFont resources, this means that the /FontInfo dictionary must
-# include /FSType with a value of 4 or 8.
+# include /FSType with a value of 0, 4, or 8.
 #
 # Tool Dependencies: Adobe Acrobat Distiller
+# Font Dependencies: Courier
 
 $do_uni = $do_t1 = 0;
 

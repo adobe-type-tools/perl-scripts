@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
-# Senior Computer Scientist, Adobe Systems Incorporated
+# Senior Computer Scientist 2, Adobe Systems Incorporated
 # Version 08/18/2014
 #
 # This script takes a CIDFont resource as its only argument, and
