@@ -173,8 +173,7 @@ The following output example is from the 142-font *SourceHanNotoCJK.ttc* Ultra O
 
     Number of Fonts: 142
     Completely Unshared Tables: head, name
-    Partially Shared Tables: BASE, CFF , GPOS, GSUB, OS/2, VORG, cmap,
-    hhea, hmtx, maxp, post, vhea, vmtx
+    Partially Shared Tables: BASE, CFF , GPOS, GSUB, OS/2, VORG, cmap, hhea, hmtx, maxp, post, vhea, vmtx
     Completely Shared Tables: SVG 
     head = 142
     name = 142
