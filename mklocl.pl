@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 # Written by Dr. Ken Lunde (lunde@adobe.com)
 # Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 12/15/2017
+# Version 12/16/2017
 
 # This tool is useful for Pan-CJK font development in that it
 # synthesizes a lookup for the 'locl' (Localized Forms) GSUB feature

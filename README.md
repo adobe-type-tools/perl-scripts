@@ -16,6 +16,20 @@ Run `cmap-tool.pl < STDIN > STDOUT` to compile (default) or decompile a CMap res
 
 Run `fdarray-check.pl <CID-keyed font> > STDOUT` to report to STDOUT the FDArray structure of a CID-keyed font&mdash;instantiated as a CIDFont resource, CFF resource, or OpenType/CFF font&mdash;that shows the ROS (/Registry, /Ordering, and /Supplement) and the name of each FDArray element, along with its index in parentheses, the CIDs and CID ranges that are assigned to it, and the total number of CIDs in parentheses. The CIDs are prefixed with a slash to explicitly indicate CIDs, as opposed to GIDs, which is useful when using the `-g` or `-gx` command-line options for many AFDKO tools, especially when GIDs do not equal CIDs in a particular font.
 
+The following output example is from [*Ten Mincho Regular*](https://typekit.com/fonts/ten-mincho):
+
+    Detected ROS: Adobe-Identity-0
+    TenMincho-Regular-Alphabetic (0): /7434-/7444,/7452-/7477,/7484-/7509 (63)
+    TenMincho-Regular-Dingbats (1): /0,/103,/112-/113,/118,/151,/183,/388-/389,/549,/554-/555,/562-/563,/565-/569,/572,/610-/612,/625-/629,/632,/636-/637,/640-/642,/645-/661,/663-/672,/675-/686,/688-/725,/813-/816,/911,/7391-/7433,/7445-/7451,/7478-/7483,/7510-/7520,/7921-/7944,/8197-/8206,/8236-/8242,/8270-/8279 (234)
+    TenMincho-Regular-Emoji (2): /8193-/8196,/8280-/8283 (8)
+    TenMincho-Regular-HWidth (3): /7911-/7920 (10)
+    TenMincho-Regular-Italic (4): /8284-/9116 (833)
+    TenMincho-Regular-Kana (5): /726-/812,/817-/910,/912-/915,/8207-/8235 (214)
+    TenMincho-Regular-Kanji (6): /916-/7325,/7328-/7384,/7521-/7522 (6469)
+    TenMincho-Regular-Proportional (7): /1-/102,/104-/111,/114-/117,/119-/150,/152-/182,/184-/387,/390-/548,/550-/553,/556-/561,/564,/570-/571,/573-/609,/613-/624,/630-/631,/633-/635,/638-/639,/643-/644,/662,/673-/674,/687,/7326-/7327,/7385-/7390,/7523-/7724,/7945-/7983,/7992-/8192 (1065)
+    TenMincho-Regular-ProportionalJapanese (8): /7984-/7991 (8)
+    TenMincho-Regular-Ruby (9): /7725-/7910,/8243-/8269 (213)
+
 `-g`: This option suppresses the slash prefix for CIDs and CID ranges.
 
 Tool Dependencies: `tx`
@@ -52,7 +66,7 @@ Special Note: The /FontName of each FDArray element as specified in the CIDFont 
 
 ### `mkicf.pl`
 
-Run `mkicf.pl <CIDFont Resource> < STDIN > STDOUT` to output to STDOUT a ready-to-use '[BASE](https://www.microsoft.com/typography/otspec/base.htm)' table override declaration that can be included in a "features" file that is used as input to the AFDKO `makeotf` tool as an argument of its `-ff` command-line option. A CIDFont resource serves as the only argument, a UTF-32 CMap resource is specified as STDIN, and these are used to calculate appropriate ICF (*Ideographic Character Face*) values. The output may look like the following:
+Run `mkicf.pl <CIDFont resource> < STDIN > STDOUT` to output to STDOUT a ready-to-use '[BASE](https://www.microsoft.com/typography/otspec/base.htm)' table override declaration that can be included in a "features" file that is used as input to the AFDKO `makeotf` tool as an argument of its `-ff` command-line option. A CIDFont resource serves as the only argument, a UTF-32 CMap resource is specified as STDIN, and these are used to calculate appropriate ICF (*Ideographic Character Face*) values. The output may look like the following:
 
     table BASE {
       HorizAxis.BaseTagList                 icfb  icft  ideo  romn;
@@ -80,7 +94,7 @@ Tool Dependencies: `tx`
 
 ### `mklocl.pl`
 
-Run `mklocl.pl -i <input_file> -o <output_file> > STDOUT` to synthesizes a lookup for the '[locl](https://www.microsoft.com/typography/otspec/features_ko.htm#locl)' (_Localized Forms_) GSUB feature by specifying two region or language identifiers, whereby the input one is considered the default region or language in terms of which glyphs are encoded by default, and the output one represents a non-default region or language. Only those code points whose CIDs are different for the two specified regions or languages are included in the lookup declaration that is output to STDOUT. The input and output files, whose lines individually map eight-digit UTF-32 character codes to CIDs, and whose names must follow the pattern `utf32-<identifier>.map`, serve as the arguments of the `-i` and `-o` command-line options, respectively, and the region or language identifiers in their names are used for synthesizing the names of the lookup declarations. The input and output files must also be present in the current working directory.
+Run `mklocl.pl -i <input file> -o <output file> > STDOUT` to synthesizes a lookup for the '[locl](https://www.microsoft.com/typography/otspec/features_ko.htm#locl)' (_Localized Forms_) GSUB feature by specifying two region or language identifiers, whereby the input one is considered the default region or language in terms of which glyphs are encoded by default, and the output one represents a non-default region or language. Only those code points whose CIDs are different for the two specified regions or languages are included in the lookup declaration that is output to STDOUT. The input and output files, whose lines individually map eight-digit UTF-32 character codes to CIDs, and whose names must follow the pattern `utf32-<identifier>.map`, serve as the arguments of the `-i` and `-o` command-line options, respectively, and the region or language identifiers in their names are used for synthesizing the names of the lookup declarations. The input and output files must also be present in the current working directory.
 
 This script must be run one time less than the number of supported regions or languages of the font. If a font supports the CN, TW, HK, JP, and KR regions, and if the default region is JP, then this script would be run four times as follows:
 
@@ -130,7 +144,7 @@ Tool Dependencies: `tx`
 
 ### `proof.pl`
 
-Run `proof.pl <template-font> <proofing-font> < STDIN > STDOUT` to create a file that can be used to proof a font against a known or "template" font. STDIN is a list of CIDs (default), glyph names, or eight-digit hexadecimal UTF-32 character codes. STDOUT is a PostScript file that is expected to serve as input to the Adobe Acrobat Distiller app to create a PDF file. Each specified glyph, in the template and proofing font, is shown twice. The first instance is in the second and third columns in black, overlaid by the other glyph in gray. The second instance is in the fourth and fifth columns in black. The specified font resources must be accessible to the Adobe Acrobat Distiller app, and if a full-qualified PostScript font name is specified for CID-keyed fonts, the Unicode (UTF-32) CMap resource must also be accessible. Font resources must have the appropriate embedding permissions set, and for CIDFont resources, this means that the /FontInfo dictionary must include /FSType with a value of 0, 4, or 8.
+Run `proof.pl <template font> <proofing font> < STDIN > STDOUT` to create a file that can be used to proof a font against a known or "template" font. STDIN is a list of CIDs (default), glyph names, or eight-digit hexadecimal UTF-32 character codes. STDOUT is a PostScript file that is expected to serve as input to the Adobe Acrobat Distiller app to create a PDF file. Each specified glyph, in the template and proofing font, is shown twice. The first instance is in the second and third columns in black, overlaid by the other glyph in gray. The second instance is in the fourth and fifth columns in black. The specified font resources must be accessible to the Adobe Acrobat Distiller app, and if a full-qualified PostScript font name is specified for CID-keyed fonts, the Unicode (UTF-32) CMap resource must also be accessible. Font resources must have the appropriate embedding permissions set, and for CIDFont resources, this means that the /FontInfo dictionary must include /FSType with a value of 0, 4, or 8.
 
 `-t1`: This option must be specified if STDIN is a list of glyph names.  
 `-uni`: This option must be specified if STDIN is a list of eight-digit hexadecimal UTF-32 character codes.
@@ -151,9 +165,62 @@ Run `setsnap.pl < STDIN > STDOUT` to calculate highest-frequency (default) or op
 
 ---
 
+### `sfnt-collection-check.pl`
+
+Run `sfnt-collection-check.pl <sfnt collection> > STDOUT` with an 'sfnt' font collection&mdash;an OTC (OpenType/CFF Collection) or TTC (TrueType Collection)&mdash;as its only command-line argument to list the number of fonts (as determined by the number of '[name](https://www.microsoft.com/typography/otspec/name.htm)' table instances), a listing of which tables are completely unshared, partially shared, and completely shared, along with a list of each table and the number of their instances, sorted from highest to lowest.
+
+The following output example is from the 142-font *SourceHanNotoCJK.ttc* Ultra OpenType/CFF Collection that is available in the [Source Han &amp; Noto CJK Mega/Ultra OTCs](https://github.com/adobe-fonts/source-han-super-otc/) project:
+
+    Number of Fonts: 142
+    Completely Unshared Tables: head, name
+    Partially Shared Tables: BASE, CFF , GPOS, GSUB, OS/2, VORG, cmap,
+    hhea, hmtx, maxp, post, vhea, vmtx
+    Completely Shared Tables: SVG 
+    head = 142
+    name = 142
+    OS/2 = 63
+    hmtx = 21
+    vhea = 21
+    CFF  = 21
+    hhea = 21
+    vmtx = 21
+    VORG = 21
+    BASE = 19
+    GPOS = 14
+    cmap = 14
+    GSUB = 10
+    maxp = 2
+    post = 2
+    SVG  = 1
+
+Tool Dependencies: `spot`
+
+---
+
 ### `subr-check.pl`
 
 Run `subr-check.pl <CFF> > STDOUT` to report the number of global (for name- and CID-keyed fonts) and local (for CID-keyed fonts only) subroutines that are present in the specified CFF or OpenType/CFF font, along with their sizes in bytes, and whether the number of subroutines exceeds architectural (64K - 3 = 65,533) or known implementation-specific (32K - 3 = 32,765) limits. Mac OS X Version 10.4 (aka, Tiger) and earlier, along with Adobe Acrobat Distiller Version 7.0 and earlier, are known implementations whose subroutine limit is 32K - 3 (32,765).
+
+The following output example is from *Source Han Sans ExtraLight* that is available in the [Source Han Sans](https://github.com/adobe-fonts/source-han-sans/) project:
+
+    Global Subroutines: 2342 (20941 bytes)
+    Local Subroutines:
+      FD=0: 3 (44 bytes)
+      FD=1: 45 (519 bytes)
+      FD=2: 2 (35 bytes)
+      FD=3: 1100 (25297 bytes)
+      FD=4: 26 (332 bytes)
+      FD=5: 136 (1192 bytes)
+      FD=7: 6 (75 bytes)
+      FD=8: 4 (43 bytes)
+      FD=9: 11 (145 bytes)
+      FD=12: 18016 (280865 bytes)
+      FD=13: 30000 (852990 bytes)
+      FD=14: 144 (4570 bytes)
+      FD=15: 247 (4813 bytes)
+      FD=16: 13 (225 bytes)
+      FD=18: 176 (3460 bytes)
+    Total Subroutine Size: 1195546 bytes
 
 Tool Dependencies: `tx`
 
