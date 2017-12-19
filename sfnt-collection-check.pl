@@ -26,7 +26,7 @@ while(defined($line = <FILE>)) {
     }
 }
 
-$fonts = scalar keys $data->{name};
+$fonts = scalar keys %{ $data->{name} };
 
 foreach $table (sort {$a cmp $b} keys %{ $data }) {
     if (scalar keys %{ $data->{$table} } == 1) {
@@ -55,7 +55,7 @@ print STDOUT "Completely Unshared Tables: $unshared\n";
 print STDOUT "Partially Shared Tables: $partially_shared\n";
 print STDOUT "Completely Shared Tables: $shared\n";
 
-foreach $table (sort { scalar keys $data->{$b} <=> scalar keys $data->{$a} } keys %{ $data }) {
+foreach $table (sort { scalar keys %{ $data->{$b} } <=> scalar keys %{ $data->{$a} } } keys %{ $data }) {
     $count = scalar keys %{ $data->{$table} };
     print STDOUT "$table = $count\n";
 }
