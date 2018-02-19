@@ -2,7 +2,7 @@
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
 # Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 09/14/2017
+# Version 02/16/2018
 #
 # Please invoke this script using the "-u" command-line option to see
 # the command-line options, or "-h" to display more information.
@@ -50,11 +50,11 @@ while(defined($line = <STDIN>)) {
 
 if ($makefile) {
     print STDOUT "Count\tWidth\n";
-    foreach $w (sort {$a <=> $b} keys %w2c) {
+    foreach $w (sort {$w2c{$b} <=> $w2c{$a} or $a <=> $b} keys %w2c) {
         print STDOUT "$w2c{$w}\t$w\n";
     }
 } elsif (not $optimize) {
-    foreach $w (keys %w2c) {
+    foreach $w (sort {$a <=> $b} keys %w2c) {
         $hicount = $w2c{$w} and $hiwidth = $w if $w2c{$w} > $hicount;
     }
     print STDOUT "$hiwidth (x $w2c{$hiwidth})$newline";
@@ -129,11 +129,12 @@ sub fix {
 
 sub ShowUsage {
   print STDOUT &fix(<<ENDUSAGE);
-  setsnap.pl Version 09/14/2017
+  setsnap.pl Version 02/16/2018
 
   setsnap.pl [-u] [-h]
   setsnap.pl < stemHist-generated-stemwidth-reports
-  setsnap.pl [-o [-b<bot_pt_size>] [-t<top_pt_size>] [-r<dpi>]] < stemHist-generated-stemwidth-reports
+  setsnap.pl -s [-n] < stemHist-generated-stemwidth-reports
+  setsnap.pl [-o [-b<bot_pt_size>] [-t<top_pt_size>] [-r<dpi>]] [-n] < stemHist-generated-stemwidth-reports
 
   Calculates highest-frequency or optimal stem width values in one or more
   stemHist-generated stemwidth reports.
@@ -150,9 +151,14 @@ sub ShowHelp {
    -b = Bottom (lower) end of point size range; used only with '-o' option
    -t = Top (upper) end of point size range; used only with '-o' option
    -r = Resolution expressed in dpi; used only with '-o' option
+   -n = Disables the writing of a newline character (this is useful when
+        executing from another script)
+   -s = Writes to STDOUT a new stemHist output file that includes only the
+        stem counts and their widths in decreasing stem-count order (this
+        is useful when concatenating multiple stemHist output files)
 
   When no options are used, the highest-frequency stem width value is
-  reported, along with the frequency in parentheses.
+  reported, along with its frequency in parentheses.
 
   When the '-o' option is used, the '-b', '-t', and '-r' options can also be
   used, and their default values are 9 (points), 24 (points), and 72 (dpi),

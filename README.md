@@ -161,7 +161,9 @@ Run `setsnap.pl < STDIN > STDOUT` to calculate highest-frequency (default) or op
 `-o`: This option calculates optimal values based on point size range (default is 9 to 24 points) and resolution (default is 72 dpi).  
 `-b`: This option specifies the bottom (lower) end of point size range, and is used only in conjunction with the `-o` command-line option.  
 `-t`: This option specifies the top (upper) end of point size range, and is used only in conjunction with the `-o` command-line option.  
-`-r`: This option specifies the resolution expressed in dpi, and is used only in conjunction with the `-o` command-line option.
+`-r`: This option specifies the resolution expressed in dpi, and is used only in conjunction with the `-o` command-line option.  
+`-n`: Disables the writing of a newline character (this is useful when executing from another script).  
+`-s`: Writes to STDOUT a new stemHist output file that includes only the stem counts and their widths in decreasing stem-count order (this is useful when concatenating multiple stemHist output files).
 
 ---
 
