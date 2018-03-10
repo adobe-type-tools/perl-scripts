@@ -2,7 +2,7 @@
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
 # Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 12/14/2017
+# Version 03/10/2018
 #
 # This script accepts as its only argument a fully-qualified
 # PostScript name for a CID-keyed font that includes a UTF-32
@@ -103,6 +103,7 @@ if ($ro eq "Adobe-GB1") {
   foreach $cid (18846 .. 18964) { $supp{$cid} = "4" }
   foreach $cid (18965 .. 19087) { $supp{$cid} = "5" }
   foreach $cid (19088 .. 19155) { $supp{$cid} = "6" }
+  foreach $cid (19156 .. 19178) { $supp{$cid} = "7" }
 } elsif ($ro eq "Adobe-CNS2") {
   foreach $cid (0 .. 55879) { $supp{$cid} = "0" }
 } elsif ($ro eq "Adobe-Japan1") {
