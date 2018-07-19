@@ -2,7 +2,7 @@
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
 # Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 03/10/2018
+# Version 07/19/2019
 #
 # This script accepts as its only argument a fully-qualified
 # PostScript name for a CID-keyed font that includes a UTF-32
@@ -42,7 +42,7 @@ print STDOUT "/E { exch add } bind def\n";
 print STDOUT "/M { moveto } bind def\n";
 print STDOUT "/W { show } bind def\n";
 print STDOUT "/SP { showpage } bind def\n";
-print STDOUT "/BX { newpath 72 658 M 468 0 rlineto 0 -548 rlineto -468 0 rlineto closepath 1.5 setlinewidth stroke";
+print STDOUT "/BX { newpath 72 658 M 468 0 rlineto 0 -548 rlineto -468 0 rlineto closepath 1 setlinewidth stroke";
 for ($x = 72; $x <= 540; $x += 29.25) {
   print STDOUT " newpath $x 668 M 0 -558 rlineto .5 setlinewidth stroke";
 }
@@ -118,6 +118,7 @@ if ($ro eq "Adobe-GB1") {
   foreach $cid (9354 .. 15443) { $supp{$cid} = "4" }
   foreach $cid (15444 .. 20316) { $supp{$cid} = "5" }
   foreach $cid (20317 .. 23057) { $supp{$cid} = "6" }
+  foreach $cid (23058 .. 23059) { $supp{$cid} = "7" }
 } elsif ($ro eq "Adobe-Japan2") {
   foreach $cid (0 .. 6067) { $supp{$cid} = "0" }
 } elsif ($ro eq "Adobe-Korea1") {
@@ -126,6 +127,23 @@ if ($ro eq "Adobe-GB1") {
   foreach $cid (0 .. 9332) { $supp{$cid} = "0" }
   foreach $cid (9333 .. 18154) { $supp{$cid} = "1" }
   foreach $cid (18155 .. 18351) { $supp{$cid} = "2" }
+} elsif ($ro eq "Adobe-KR") {
+  foreach $cid (0, 119, 128, 132, 135, 136, 138 .. 147, 152 .. 155, 158 .. 169, 11451 .. 11877, 11895, 11923 .. 11925, 11932 .. 11976, 11978 .. 12107, 12151 .. 12234, 14238 .. 22479, 22690 .. 22896) { $widths{$cid} = "F" }
+  foreach $cid (109, 170 .. 3000, 3053 .. 3056, 3059 .. 11450, 12108 .. 12150, 12237 .. 13500) { $widths{$cid} = "M" }
+  foreach $cid (13501 .. 14237) { $widths{$cid} = "Z" }
+  foreach $cid (12235, 12236) { $widths{$cid} = "Q" }
+  foreach $cid (3057, 3058) { $widths{$cid} = "W" }
+  foreach $cid (1 .. 108, 110 .. 118, 120 .. 127, 129 .. 131, 133, 134, 137, 148 .. 151, 156, 157, 3001 .. 3052, 11878 .. 11894, 11896 .. 11922, 11926 .. 11931, 11977, 22480 .. 22689) { $widths{$cid} = "P" }
+  foreach $cid (0 .. 3058) { $supp{$cid} = "0" }
+  foreach $cid (3059 .. 4636) { $supp{$cid} = "1" }
+  foreach $cid (4637 .. 11450) { $supp{$cid} = "2" }
+  foreach $cid (11451 .. 11730) { $supp{$cid} = "3" }
+  foreach $cid (11731 .. 11877) { $supp{$cid} = "4" }
+  foreach $cid (11878 .. 12234) { $supp{$cid} = "5" }
+  foreach $cid (12235 .. 14237) { $supp{$cid} = "6" }
+  foreach $cid (14238 .. 18857) { $supp{$cid} = "7" }
+  foreach $cid (18858 .. 22479) { $supp{$cid} = "8" }
+  foreach $cid (22480 .. 22896) { $supp{$cid} = "9" }
 }
 
 print STDERR "CIDFont: $cidfont CMap: $cmap ROS: $ros\n";
