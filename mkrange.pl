@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
-# Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 12/14/2017
+# Senior Computer Scientist 2, Adobe Inc.
+# Version 2019-03-27
 #
 # This script takes a list of integer values as STDIN and outputs to
 # STDOUT the same list, but as ranges of contiguous integer values

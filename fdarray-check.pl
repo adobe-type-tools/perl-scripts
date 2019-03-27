@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
-# Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 08/18/2014
+# Senior Computer Scientist 2, Adobe Inc.
+# Version 2019-03-27
 #
 # This tool takes a CID-keyed font, which can be a CIDFont resource
 # (instantiated as a file), CFF resource/table (instantiated as a

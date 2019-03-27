@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
-# Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 12/07/2017
+# Senior Computer Scientist 2, Adobe Inc.
+# Version 2019-03-27
 #
 # This tool lists the Unicode code points in the specified OpenType
 # font. By default, only the Unicode code points are listed, one per

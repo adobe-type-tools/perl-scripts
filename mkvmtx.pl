@@ -1,9 +1,9 @@
 #!/usr/bin/perl 
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
-# Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 12/14/2017
-
+# Senior Computer Scientist 2, Adobe Inc.
+# Version 2019-03-27
+#
 # This tool takes a CIDFont resource as its only command-line argument,
 # along with a list of CIDs or CID ranges that correspond to full-width
 # glyphs that rest on the Western baseline, such as Latin, Greek,

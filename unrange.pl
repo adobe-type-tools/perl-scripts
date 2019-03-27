@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
-# Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 12/14/2017
+# Senior Computer Scientist 2, Adobe Inc.
+# Version 2019-03-27
 #
 # This script uses STDIN and STDOUT, and simply unwinds a list of integer
 # or hexadecimal values, some of which may be expressed as ranges by

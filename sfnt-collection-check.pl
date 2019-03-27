@@ -1,9 +1,9 @@
 #!/usr/bin/perl
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
-# Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 12/16/2017
-
+# Senior Computer Scientist 2, Adobe Inc.
+# Version 2019-03-27
+#
 # This tool takes an 'sfnt' font collection, such as an OTC (OpenType/
 # CFF Collection) or TTC (TrueType Collection), as its only command-
 # line argument, then lists the number of fonts (as determined by the

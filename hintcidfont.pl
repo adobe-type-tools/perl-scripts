@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
-# Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 02/28/2017
+# Senior Computer Scientist 2, Adobe Inc.
+# Version 2019-03-27
 #
 # This tool takes a hinting parameter file of a particular format as
 # input (an example from Source Han Sans ExtraLight is provided at the

@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
-# Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 02/16/2018
+# Senior Computer Scientist 2, Adobe Inc.
+# Version 2019-03-27
 #
 # Please invoke this script using the "-u" command-line option to see
 # the command-line options, or "-h" to display more information.

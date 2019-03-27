@@ -66,7 +66,7 @@ Special Note: The /FontName of each FDArray element as specified in the CIDFont 
 
 ### `mkicf.pl`
 
-Run `mkicf.pl <CIDFont resource> < STDIN > STDOUT` to output to STDOUT a ready-to-use '[BASE](https://www.microsoft.com/typography/otspec/base.htm)' table override declaration that can be included in a "features" file that is used as input to the AFDKO `makeotf` tool as an argument of its `-ff` command-line option. A CIDFont resource serves as the only argument, a UTF-32 CMap resource is specified as STDIN, and these are used to calculate appropriate ICF (*Ideographic Character Face*) values. The output may look like the following:
+Run `mkicf.pl <CIDFont resource> < STDIN > STDOUT` to output to STDOUT a ready-to-use '[BASE](https://docs.microsoft.com/en-us/typography/opentype/spec/base)' table override declaration that can be included in a "features" file that is used as input to the AFDKO `makeotf` tool as an argument of its `-ff` command-line option. A CIDFont resource serves as the only argument, a UTF-32 CMap resource is specified as STDIN, and these are used to calculate appropriate ICF (*Ideographic Character Face*) values. The output may look like the following:
 
     table BASE {
       HorizAxis.BaseTagList                 icfb  icft  ideo  romn;
@@ -94,7 +94,7 @@ Tool Dependencies: `tx`
 
 ### `mklocl.pl`
 
-Run `mklocl.pl -i <input file> -o <output file> > STDOUT` to synthesizes a lookup for the '[locl](https://www.microsoft.com/typography/otspec/features_ko.htm#locl)' (_Localized Forms_) GSUB feature by specifying two region or language identifiers, whereby the input one is considered the default region or language in terms of which glyphs are encoded by default, and the output one represents a non-default region or language. Only those code points whose CIDs are different for the two specified regions or languages are included in the lookup declaration that is output to STDOUT. The input and output files, whose lines individually map eight-digit UTF-32 character codes to CIDs, and whose names must follow the pattern `utf32-<identifier>.map`, serve as the arguments of the `-i` and `-o` command-line options, respectively, and the region or language identifiers in their names are used for synthesizing the names of the lookup declarations. The input and output files must also be present in the current working directory.
+Run `mklocl.pl -i <input file> -o <output file> > STDOUT` to synthesizes a lookup for the '[locl](https://docs.microsoft.com/en-us/typography/opentype/spec/features_ko#a-namelocl-idloclatag-39locl39)' (_Localized Forms_) GSUB feature by specifying two region or language identifiers, whereby the input one is considered the default region or language in terms of which glyphs are encoded by default, and the output one represents a non-default region or language. Only those code points whose CIDs are different for the two specified regions or languages are included in the lookup declaration that is output to STDOUT. The input and output files, whose lines individually map eight-digit UTF-32 character codes to CIDs, and whose names must follow the pattern `utf32-<identifier>.map`, serve as the arguments of the `-i` and `-o` command-line options, respectively, and the region or language identifiers in their names are used for synthesizing the names of the lookup declarations. The input and output files must also be present in the current working directory.
 
 This script must be run one time less than the number of supported regions or languages of the font. If a font supports the CN, TW, HK, JP, and KR regions, and if the default region is JP, then this script would be run four times as follows:
 
@@ -121,7 +121,7 @@ Run `mkrange.pl < STDIN > STDOUT` to output a list of integer (default) or hexad
 
 ### `mkvmtx.pl`
 
-Run `mkvmtx.pl <CIDFont resource> < STDIN > STDOUT` to output to STDOUT a ready-to-use '[vmtx](https://www.microsoft.com/typography/otspec/vmtx.htm)' table override declaration that can be included in a "features" file that is used as input to the AFDKO `makeotf` tool as an argument of its `-ff` command-line option. A CIDFont resource serves as the only argument, and STDIN is a list of CIDs and CID ranges that correspond to full-width glyphs that rest on the Western baseline, such as Latin, Greek, Cyrillic, currency symbols, and other characters. The specified CIDs are mechanically centered along the Y-axis by using the top and bottom of the em-box as reference points, along with the top and bottom of their bounding boxes. If a CID does not require adjustment, meaning that its glyph is already centered along the Y-axis, it is omitted from the output. Below is example output that uses CIDs 710 through 720:
+Run `mkvmtx.pl <CIDFont resource> < STDIN > STDOUT` to output to STDOUT a ready-to-use '[vmtx](https://docs.microsoft.com/en-us/typography/opentype/spec/vmtx)' table override declaration that can be included in a "features" file that is used as input to the AFDKO `makeotf` tool as an argument of its `-ff` command-line option. A CIDFont resource serves as the only argument, and STDIN is a list of CIDs and CID ranges that correspond to full-width glyphs that rest on the Western baseline, such as Latin, Greek, Cyrillic, currency symbols, and other characters. The specified CIDs are mechanically centered along the Y-axis by using the top and bottom of the em-box as reference points, along with the top and bottom of their bounding boxes. If a CID does not require adjustment, meaning that its glyph is already centered along the Y-axis, it is omitted from the output. Below is example output that uses CIDs 710 through 720:
 
     table vmtx {
       VertOriginY \710 889;
@@ -136,7 +136,7 @@ Run `mkvmtx.pl <CIDFont resource> < STDIN > STDOUT` to output to STDOUT a ready-
       VertOriginY \720 818;
     } vmtx;
 
-Please see the [Resources](Resources) directory for the following pre-made lists of CIDs and CID ranges for Adobe's public ROSes: *vmtx.AC17* (Adobe-CNS1-7), *vmtx.AG15* (Adobe-GB1-5), *vmtx.AJ16* (Adobe-Japan1-6), and *vmtx.AK12* (Adobe-Korea1-2).
+Please see the [Resources](Resources) directory for the following pre-made lists of CIDs and CID ranges for Adobe's public ROSes: *vmtx.AC17* (Adobe-CNS1-7), *vmtx.AG15* (Adobe-GB1-5), *vmtx.AJ16* (Adobe-Japan1-6), *vmtx.AK12* (Adobe-Korea1-2), and *vmtx.AKR9* (Adobe-KR-9).
 
 Tool Dependencies: `tx`
 
@@ -169,7 +169,7 @@ Run `setsnap.pl < STDIN > STDOUT` to calculate highest-frequency (default) or op
 
 ### `sfnt-collection-check.pl`
 
-Run `sfnt-collection-check.pl <sfnt collection> > STDOUT` with an 'sfnt' font collection&mdash;an OTC (OpenType/CFF Collection) or TTC (TrueType Collection)&mdash;as its only command-line argument to list the number of fonts (as determined by the number of '[name](https://www.microsoft.com/typography/otspec/name.htm)' table instances), a listing of which tables are completely unshared, partially shared, and completely shared, along with a list of each table and the number of their instances, sorted from highest to lowest.
+Run `sfnt-collection-check.pl <sfnt collection> > STDOUT` with an 'sfnt' font collection&mdash;an OTC (OpenType/CFF Collection) or TTC (TrueType Collection)&mdash;as its only command-line argument to list the number of fonts (as determined by the number of '[name](https://docs.microsoft.com/en-us/typography/opentype/spec/name)' table instances), a listing of which tables are completely unshared, partially shared, and completely shared, along with a list of each table and the number of their instances, sorted from highest to lowest.
 
 The following output example is from the 142-font *SourceHanNotoCJK.ttc* Ultra OpenType/CFF Collection that is available in the [Source Han &amp; Noto CJK Mega/Ultra OTCs](https://github.com/adobe-fonts/source-han-super-otc/) project:
 
@@ -229,7 +229,7 @@ Tool Dependencies: `tx`
 
 ### `unicode-list.pl`
 
-Run `unicode-list.pl <font> > STDOUT` to list the Unicode code points that are supported by the '[cmap](https://www.microsoft.com/typography/otspec/cmap.htm)' table of the specified OpenType font. By default, only the Unicode code points are listed, one per line, and if the OpenType font includes both a Format 4 (BMP-only UTF-16) and Format 12 (UTF-32) 'cmap' subtable, the latter is used.
+Run `unicode-list.pl <font> > STDOUT` to list the Unicode code points that are supported by the '[cmap](https://docs.microsoft.com/en-us/typography/opentype/spec/cmap)' table of the specified OpenType font. By default, only the Unicode code points are listed, one per line, and if the OpenType font includes both a Format 4 (BMP-only UTF-16) and Format 12 (UTF-32) 'cmap' subtable, the latter is used.
 
 `-g`: This option includes the glyph names (for name-keyed fonts) or CIDs (for CID-keyed fonts) in a second column.  
 `-r`: This option turns the list of Unicode code points into ranges, and is ignored if the `-g` command-line option is also specified.

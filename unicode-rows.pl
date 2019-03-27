@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
-# Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 07/19/2019
+# Senior Computer Scientist 2, Adobe Inc
+# Version 2019-03-27
 #
 # This script accepts as its only argument a fully-qualified
 # PostScript name for a CID-keyed font that includes a UTF-32

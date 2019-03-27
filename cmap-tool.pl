@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
-# Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 11/08/2015
+# Senior Computer Scientist 2, Adobe Inc.
+# Version 2019-03-27
 #
 # This tool takes a valid CMap resource as STDIN, and outputs to STDOUT
 # an optimized -- in terms of representing contiguous code points and
@@ -412,8 +412,7 @@ sub PrintCMap (%) {
 \%\%Title: ($cmap{Name} $cmap{Registry} $cmap{Ordering} $cmap{Supplement})
 \%\%Version: $cmap{Version}
 \%\%Copyright: -----------------------------------------------------------
-\%\%Copyright: Copyright 1990-$year Adobe Systems Incorporated.
-\%\%Copyright: All rights reserved.
+\%\%Copyright: Copyright 1990-$year Adobe. All rights reserved.
 \%\%Copyright:
 \%\%Copyright: Redistribution and use in source and binary forms, with or
 \%\%Copyright: without modification, are permitted provided that the
@@ -428,10 +427,9 @@ sub PrintCMap (%) {
 \%\%Copyright: disclaimer in the documentation and/or other materials
 \%\%Copyright: provided with the distribution. 
 \%\%Copyright:
-\%\%Copyright: Neither the name of Adobe Systems Incorporated nor the names
-\%\%Copyright: of its contributors may be used to endorse or promote
-\%\%Copyright: products derived from this software without specific prior
-\%\%Copyright: written permission. 
+\%\%Copyright: Neither the name of Adobe nor the names of its contributors
+\%\%Copyright: may be used to endorse or promote products derived from this
+\%\%Copyright: software without specific prior written permission. 
 \%\%Copyright:
 \%\%Copyright: THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
 \%\%Copyright: CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
@@ -497,8 +495,7 @@ sub PrintUseCMap (%) {
 \%\%Title: ($cmap{Name} $cmap{Registry} $cmap{Ordering} $cmap{Supplement})
 \%\%Version: $cmap{Version}
 \%\%Copyright: -----------------------------------------------------------
-\%\%Copyright: Copyright 1990-$year Adobe Systems Incorporated.
-\%\%Copyright: All rights reserved.
+\%\%Copyright: Copyright 1990-$year Adobe. All rights reserved.
 \%\%Copyright:
 \%\%Copyright: Redistribution and use in source and binary forms, with or
 \%\%Copyright: without modification, are permitted provided that the
@@ -513,10 +510,9 @@ sub PrintUseCMap (%) {
 \%\%Copyright: disclaimer in the documentation and/or other materials
 \%\%Copyright: provided with the distribution. 
 \%\%Copyright:
-\%\%Copyright: Neither the name of Adobe Systems Incorporated nor the names
-\%\%Copyright: of its contributors may be used to endorse or promote
-\%\%Copyright: products derived from this software without specific prior
-\%\%Copyright: written permission. 
+\%\%Copyright: Neither the name of Adobe nor the names of its contributors
+\%\%Copyright: may be used to endorse or promote products derived from this
+\%\%Copyright: software without specific prior written permission. 
 \%\%Copyright:
 \%\%Copyright: THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
 \%\%Copyright: CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
@@ -581,8 +577,7 @@ sub PrintIdentityCMap (%) {
 \%\%Title: (Identity $cmap{Registry} $cmap{Ordering} $cmap{Supplement})
 \%\%Version: $cmap{Version}
 \%\%Copyright: -----------------------------------------------------------
-\%\%Copyright: Copyright 1990-$year Adobe Systems Incorporated.
-\%\%Copyright: All rights reserved.
+\%\%Copyright: Copyright 1990-$year Adobe. All rights reserved.
 \%\%Copyright:
 \%\%Copyright: Redistribution and use in source and binary forms, with or
 \%\%Copyright: without modification, are permitted provided that the
@@ -597,10 +592,9 @@ sub PrintIdentityCMap (%) {
 \%\%Copyright: disclaimer in the documentation and/or other materials
 \%\%Copyright: provided with the distribution. 
 \%\%Copyright:
-\%\%Copyright: Neither the name of Adobe Systems Incorporated nor the names
-\%\%Copyright: of its contributors may be used to endorse or promote
-\%\%Copyright: products derived from this software without specific prior
-\%\%Copyright: written permission. 
+\%\%Copyright: Neither the name of Adobe nor the names of its contributors
+\%\%Copyright: may be used to endorse or promote products derived from this
+\%\%Copyright: software without specific prior written permission. 
 \%\%Copyright:
 \%\%Copyright: THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
 \%\%Copyright: CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,

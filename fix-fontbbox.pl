@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
-# Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 08/18/2014
+# Senior Computer Scientist 2, Adobe Inc.
+# Version 2019-03-27
 #
 # This script takes a CIDFont resource as its only argument, and
 # outputs to STDOUT a CIDFont resource with a corrected /FontBBox

@@ -1,9 +1,9 @@
 #!/usr/bin/perl
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
-# Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 12/14/2017
-
+# Senior Computer Scientist 2, Adobe Inc.
+# Version 2019-03-27
+#
 # This tool takes a CIDFont resource as input and a UTF-32 CMap
 # resource as STDIN, calculates appropriate ICF (Ideographic
 # Character Face) values, and outputs a ready-to-use 'BASE' table

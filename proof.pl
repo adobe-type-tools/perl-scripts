@@ -1,8 +1,8 @@
 #!/usr/bin/perl
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
-# Senior Computer Scientist 2, Adobe Systems Incorporated
-# Version 12/14/2017
+# Senior Computer Scientist 2, Adobe Inc.
+# Version 2019-03-27
 #
 # This script accepts as STDIN a list of CIDs (for CIDFont resources),
 # glyph names (for name-keyed fonts), or eight-digit hexadecimal
