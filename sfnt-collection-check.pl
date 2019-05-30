@@ -2,7 +2,7 @@
 
 # Written by Dr. Ken Lunde (lunde@adobe.com)
 # Senior Computer Scientist 2, Adobe Inc.
-# Version 2019-03-27
+# Version 2019-05-30
 #
 # This tool takes an 'sfnt' font collection, such as an OTC (OpenType/
 # CFF Collection) or TTC (TrueType Collection), as its only command-
@@ -55,7 +55,7 @@ print STDOUT "Completely Unshared Tables: $unshared\n";
 print STDOUT "Partially Shared Tables: $partially_shared\n";
 print STDOUT "Completely Shared Tables: $shared\n";
 
-foreach $table (sort { scalar keys %{ $data->{$b} } <=> scalar keys %{ $data->{$a} } } keys %{ $data }) {
+foreach $table (sort { scalar keys %{ $data->{$b} } <=> scalar keys %{ $data->{$a} } or $a cmp $b } keys %{ $data }) {
     $count = scalar keys %{ $data->{$table} };
     print STDOUT "$table = $count\n";
 }

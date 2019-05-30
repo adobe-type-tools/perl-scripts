@@ -171,28 +171,28 @@ Run `setsnap.pl < STDIN > STDOUT` to calculate highest-frequency (default) or op
 
 Run `sfnt-collection-check.pl <sfnt collection> > STDOUT` with an 'sfnt' font collection&mdash;an OTC (OpenType/CFF Collection) or TTC (TrueType Collection)&mdash;as its only command-line argument to list the number of fonts (as determined by the number of '[name](https://docs.microsoft.com/en-us/typography/opentype/spec/name)' table instances), a listing of which tables are completely unshared, partially shared, and completely shared, along with a list of each table and the number of their instances, sorted from highest to lowest.
 
-The following output example is from the 142-font *SourceHanNotoCJK.ttc* Ultra OpenType/CFF Collection that is available in the [Source Han &amp; Noto CJK Mega/Ultra OTCs](https://github.com/adobe-fonts/source-han-super-otc/) project:
+The following output example is from the 216-font *SourceHanNotoCJK.ttc* Ultra OpenType/CFF Collection that is available in the [Source Han &amp; Noto CJK Mega/Ultra OTCs](https://github.com/adobe-fonts/source-han-super-otc/) project:
 
-    Number of Fonts: 142
+    Number of Fonts: 216
     Completely Unshared Tables: head, name
-    Partially Shared Tables: BASE, CFF , GPOS, GSUB, OS/2, VORG, cmap, hhea, hmtx, maxp, post, vhea, vmtx
-    Completely Shared Tables: SVG 
-    head = 142
-    name = 142
-    OS/2 = 63
+    Partially Shared Tables: BASE, CFF , GPOS, GSUB, OS/2, VORG, cmap, hhea, hmtx, post, vhea, vmtx
+    Completely Shared Tables: GDEF, maxp
+    head = 216
+    name = 216
+    OS/2 = 84
+    GPOS = 53
+    cmap = 24
+    CFF  = 21
+    VORG = 21
+    hhea = 21
     hmtx = 21
     vhea = 21
-    CFF  = 21
-    hhea = 21
     vmtx = 21
-    VORG = 21
-    BASE = 19
-    GPOS = 14
-    cmap = 14
-    GSUB = 10
-    maxp = 2
+    GSUB = 19
+    BASE = 12
     post = 2
-    SVG  = 1
+    GDEF = 1
+    maxp = 1
 
 Tool Dependencies: `spot`
 
@@ -266,7 +266,7 @@ Some of the scripts may depend on particular tools being installed and appropria
 
 Here is a list of the locations from which you may need to get the extra tools and packages:
 
-* [Adobe Font Development Kit for OpenType (AFDKO)](http://www.adobe.com/devnet/opentype/afdko.html)
+* [Adobe Font Development Kit for OpenType (AFDKO)](https://github.com/adobe-type-tools/afdko/)
     * spot
     * tx
 * Adobe Acrobat Distiller
