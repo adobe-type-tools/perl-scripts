@@ -283,4 +283,4 @@ Here is a list of the locations from which you may need to get the extra tools a
 
 ## Getting Involved
 
-Send suggestions for changes to the Perl Scripts project maintainer, [Dr. Ken Lunde](mailto:lunde@adobe.com?subject=[GitHub]%20Perl%20Scripts), for consideration.
+Suggest changes by submitting an [Issue](https://github.com/adobe-type-tools/perl-scripts/issues).
