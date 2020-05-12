@@ -28,7 +28,7 @@ while(defined($line = <FILE>)) {
     chomp $line;
     if ($line =~ /^([A-Z][A-Za-z0-9]?.+)$/) {
         $hintdictname1 = $1;
-    } elsif ($line =~ /(\/(?:BlueValues|OtherBlues|Std(?:H|V)W|StemSnap(?:H|V))\s+\[\s*.+\s*\]\s+def)/) {
+    } elsif ($line =~ /(\/(?:BlueValues|BlueScale|OtherBlues|Std(?:H|V)W|StemSnap(?:H|V))\s+\[?\s*.+\s*\]?\s+def)/) {
         $hintdata{$hintdictname1} .= $1 . "\n";
     }
 }
