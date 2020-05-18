@@ -44,7 +44,7 @@ while(defined($line = <STDIN>)) {
         print STDOUT "/Private 15 dict dup begin\n";
         print STDOUT $hintdata{$hintdictname2};
         next;
-    } elsif ($line =~/\/(?:Blue(?:Values|Scale|Fuzz)|(?:Family)?(?:Other)?Blues|Std(?:H|V)W|StemSnap(?:H|V)|RndStemUp)/) {
+    } elsif ($line =~/\/(?:Blue(?:Values|Scale|Fuzz)|(?:Family)?(?:Other)?Blues|Std(?:H|V)W|StemSnap(?:H|V)|RndStemUp)/ && exists $hintdata{$hintdictname2}) {
         next;
     }
     print STDOUT $line;
