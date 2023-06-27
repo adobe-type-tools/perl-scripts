@@ -93,6 +93,7 @@ if ($ro eq "Adobe-GB1") {
   foreach $cid (22127 .. 22352) { $supp{$cid} = "3" }
   foreach $cid (22353 .. 29063) { $supp{$cid} = "4" }
   foreach $cid (29064 .. 30283) { $supp{$cid} = "5" }
+  foreach $cid (30284 .. 30571) { $supp{$cid} = "6" }
 } elsif ($ro eq "Adobe-CNS1") {
   foreach $cid (1 .. 98, 17601) { $widths{$cid} = "P" }
   foreach $cid (13648 .. 13742, 17603) { $widths{$cid} = "H" }
